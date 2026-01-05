@@ -18,21 +18,16 @@ public class InsurancePurchaseFlow extends BaseTest {
         landingPage
                 .open("https://digital.harel-group.co.il/travel-policy/")
                 .clickFirstPurchaseButton()
-                .selectAnyContinent();
-        WebElement australiaElement = landingPage.getAustraliaElement();
+                .selectContinent("australia");  // parameterized
 
-        // Verify data-hrl-bo attribute
-        String dataAttribute = australiaElement.getAttribute("data-hrl-bo");
-        Assert.assertEquals(dataAttribute, "australia-selected",
-                "Australia should have data-hrl-bo='australia-selected'");
+        WebElement australiaElement = landingPage.getContinentElement("australia");
 
-        // Verify aria-checked attribute
-        String ariaChecked = australiaElement.getAttribute("aria-checked");
-        Assert.assertEquals(ariaChecked, "true",
-                "Australia should have aria-checked='true'");
+        Assert.assertEquals(australiaElement.getAttribute("data-hrl-bo"),
+                "australia-selected", "Australia should have data-hrl-bo='australia-selected'");
+
+        Assert.assertEquals(australiaElement.getAttribute("aria-checked"),
+                "true", "Australia should have aria-checked='true'");
     }
-
-
 
 
     @Test

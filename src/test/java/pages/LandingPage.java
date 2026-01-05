@@ -27,43 +27,46 @@ public class LandingPage {
         return this;
     }
 
-    public LandingPage selectAnyContinent() {
+
+
+    public LandingPage selectContinent(String continent) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Try different possible selectors - adjust based on actual HTML structure
-        WebElement australia = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.cssSelector("[data-hrl-bo='australia'], [data-hrl-bo='australia-selected'], [data-hrl-bo*='australia']")
-                )
+        // Build dynamic selector
+        String cssSelector = String.format(
+                "[data-hrl-bo='%s'], [data-hrl-bo='%s-selected'], [data-hrl-bo*='%s']",
+                continent, continent, continent
+        );
+
+        WebElement element = wait.until(
+                ExpectedConditions.elementToBeClickable(By.cssSelector(cssSelector))
         );
 
         // Scroll into view
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
-                australia
+                element
         );
 
-        // Wait a moment for scroll
-        wait.until(ExpectedConditions.elementToBeClickable(australia));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
 
         // Try regular click, fallback to JS click
         try {
-            australia.click();
+            element.click();
         } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", australia);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
         }
 
         return this;
     }
 
-    public WebElement getAustraliaElement() {
+    // Generic getter for assertions
+    public WebElement getContinentElement(String continent) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(
-                ExpectedConditions.presenceOfElementLocated(
-                        By.cssSelector("[data-hrl-bo='australia-selected']")
-                )
-        );
+        String cssSelector = String.format("[data-hrl-bo='%s-selected']", continent);
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(cssSelector)));
     }
+
 
     public DatesPage goToDatesPage() {
         driver.findElement(By.xpath("//button[contains(text(),'הלאה')]")).click();

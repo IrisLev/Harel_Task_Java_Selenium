@@ -12,7 +12,7 @@ public class InsurancePurchaseFlow extends BaseTest {
 
 
     @Test
-    public void openLandingPageTest() {
+    public void InsuranceProcessTest() {
         LandingPage landingPage = new LandingPage(driver);
 
         landingPage
@@ -40,30 +40,3 @@ public class InsurancePurchaseFlow extends BaseTest {
         insuranceDetails.verifyPageOpened();
     }
 }
-
-   /* @Test
-    public void navigatingToDatesPage() {
-        DatesPage datesPage = landingPage.goToDatesPage(); */
-
-
-
-
-
-
-
-//        LandingPage landingPage = new LandingPage(driver)
-//                .open("https://YOUR_URL")
-//                .clickFirstPurchaseButton()
-//                .selectAnyContinent();
-//
-//        DatesPage datesPage = landingPage.goToDatesPage();
-//
-//        InsuranceDetails insuranceDetails = datesPage
-//                .selectDepartureDatePlusDays(7)
-//                .selectReturnDatePlusDays(30)
-//                .verifyTotalDays()
-//                .goToPassengerDetails();
-//
-//        insuranceDetails.verifyPageOpened();
-
-

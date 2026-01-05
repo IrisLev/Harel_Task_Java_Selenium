@@ -32,7 +32,6 @@ public class LandingPage {
     public LandingPage selectContinent(String continent) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Build dynamic selector
         String cssSelector = String.format(
                 "[data-hrl-bo='%s'], [data-hrl-bo='%s-selected'], [data-hrl-bo*='%s']",
                 continent, continent, continent
@@ -42,7 +41,7 @@ public class LandingPage {
                 ExpectedConditions.elementToBeClickable(By.cssSelector(cssSelector))
         );
 
-        // Scroll into view
+        // Scroll to be able to view the element
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
                 element
@@ -50,7 +49,7 @@ public class LandingPage {
 
         wait.until(ExpectedConditions.elementToBeClickable(element));
 
-        // Try regular click, fallback to JS click
+        // If the simple click fails, use JS click
         try {
             element.click();
         } catch (Exception e) {
@@ -60,7 +59,7 @@ public class LandingPage {
         return this;
     }
 
-    // Generic getter for assertions
+
     public WebElement getContinentElement(String continent) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         String cssSelector = String.format("[data-hrl-bo='%s-selected']", continent);

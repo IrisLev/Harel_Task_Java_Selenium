@@ -17,9 +17,6 @@ public class InsuranceDetails {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    /**
-     * Verifies that the passenger details page is opened by checking a unique element.
-     */
     public InsuranceDetails verifyPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.cssSelector("[data-hrl-bo='passengerDetailsTitle'], h1, h2") // adjust selector if needed
@@ -27,7 +24,7 @@ public class InsuranceDetails {
         return this;
     }
 
-    // Example: You could add methods to fill in passenger info later
+    //Below are methods that may be needed later, not relevant for the current task definition
     public InsuranceDetails enterFirstName(String firstName) {
         driver.findElement(By.cssSelector("[data-hrl-bo='firstNameInput']")).sendKeys(firstName);
         return this;
@@ -43,6 +40,4 @@ public class InsuranceDetails {
         driver.findElement(By.xpath("//li[text()='" + gender + "']")).click();
         return this;
     }
-
-    // Add other passenger details actions here...
 }

@@ -27,12 +27,23 @@ public class InsurancePurchaseFlow extends BaseTest {
 
         Assert.assertEquals(australiaElement.getAttribute("aria-checked"),
                 "true", "Australia should have aria-checked='true'");
+        DatesPage datesPage = landingPage.goToDatesPage();
+        String expectedUrl = "https://digital.harel-group.co.il/travel-policy/wizard/date";
+        String actualUrl = driver.getCurrentUrl();
+        Assert.assertEquals(actualUrl, expectedUrl, "Should navigate to Dates page URL");
+        datesPage
+                .selectDepartureDatePlusDays(7)
+                .selectReturnDatePlusDays(30)
+                .verifyTotalDays(30); // confirm 30-day trip
+
+        InsuranceDetails insuranceDetails = datesPage.goToPassengerDetails();
+        insuranceDetails.verifyPageOpened();
     }
+}
 
-
-    @Test
-    public void shouldCompleteInsurancePurchaseFlow() {
-
+   /* @Test
+    public void navigatingToDatesPage() {
+        DatesPage datesPage = landingPage.goToDatesPage(); */
 
 
 
@@ -54,5 +65,5 @@ public class InsurancePurchaseFlow extends BaseTest {
 //                .goToPassengerDetails();
 //
 //        insuranceDetails.verifyPageOpened();
-    }
-}
+
+

@@ -67,9 +67,16 @@ public class LandingPage {
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(cssSelector)));
     }
 
-
     public DatesPage goToDatesPage() {
-        driver.findElement(By.xpath("//button[contains(text(),'הלאה')]")).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement nextButton = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-hrl-bo='wizard-next-button']")
+                )
+        );
+
+        nextButton.click();
         return new DatesPage(driver);
     }
 }
